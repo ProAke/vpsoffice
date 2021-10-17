@@ -10,16 +10,16 @@ Copyright (C) 2021-2025, VPS Live Digital togethers all rights reserved.
 
 
 /*
-jie_page
+tb_page
 */
 function ReferGroup($type="",$lag){
 global $tpl;
 
-$query	= "SELECT * FROM `jie_refer_type_detail` WHERE `LAG`='$lag' ORDER BY `ORDER`,`ID`";
+$query	= "SELECT * FROM `tb_refer_type_detail` WHERE `LAG`='$lag' ORDER BY `ORDER`,`ID`";
 	$result	= mysql_query($query);
 	while($line = mysql_fetch_array($result)) {
 	$type_id=$line["ID"];
-	$query2	= "SELECT * FROM `jie_refer_detail` WHERE `LAG`='$lag' AND `TYPE_ID`='$type_id' ";
+	$query2	= "SELECT * FROM `tb_refer_detail` WHERE `LAG`='$lag' AND `TYPE_ID`='$type_id' ";
 	$result2	= mysql_query($query2);
 	$num_type=mysql_num_rows($result2);
 	$tpl->newBlock("CATZ");
@@ -53,7 +53,7 @@ $tpl->assign("lname",$_SESSION['slname']);
 function SLIDE_FRONT($table,$lag){
 global $tpl;
 
-	$query	= "SELECT * FROM `jie_front_slide_detail` WHERE `STATUS`='Show'  AND `LAG`='$lag' ORDER BY `SORT` ASC";
+	$query	= "SELECT * FROM `tb_front_slide_detail` WHERE `STATUS`='Show'  AND `LAG`='$lag' ORDER BY `SORT` ASC";
 	$result	= mysql_query($query);
 	while($line = mysql_fetch_array($result)) {
 	$tpl->newBlock("SLIDE");
@@ -432,7 +432,7 @@ for($i=0;$i<count($id);$i++){
 
 function AddSEO($id){
 global $tpl;
-	$query = "SELECT * FROM `jie_page` WHERE `ID`='$id' AND `LAG`='1' ";
+	$query = "SELECT * FROM `tb_page` WHERE `ID`='$id' AND `LAG`='1' ";
 	$result = mysql_query($query);
 	$line = mysql_fetch_array($result);
 	$tpl->newBlock("SEO_UPDATE");
@@ -763,7 +763,7 @@ function SocialElements(){
 	global $tpl;
 	global $conn;
 
-	$query = "SELECT * FROM `jie_social` WHERE `ID`='1'";
+	$query = "SELECT * FROM `tb_social` WHERE `ID`='1'";
 	$result = mysql_query($query);
 	$line = mysql_fetch_array($result);
 	if($line["FACEBOOK"]!=""){
@@ -785,7 +785,7 @@ function SocialElements(){
 
 function FirstBanner(){
 	global $tpl;
-	$query = "SELECT * FROM `jie_banner` WHERE `ID`='1'";
+	$query = "SELECT * FROM `tb_banner` WHERE `ID`='1'";
 	$result = mysql_query($query);
 	$line = mysql_fetch_array($result);
 	if($line["PAGE1"]!=""){
@@ -797,7 +797,7 @@ function FirstBanner(){
 
 function Banner_All(){
 	global $tpl;
-	$query = "SELECT * FROM `jie_banner` WHERE `ID`='1'";
+	$query = "SELECT * FROM `tb_banner` WHERE `ID`='1'";
 	$result = mysql_query($query);
 	$line = mysql_fetch_array($result);
 	if($line["PAGE2_1"]!=""){
@@ -814,7 +814,7 @@ function Banner_All(){
 
 function MenuProblemCAT($lag,$cat){
 	global $tpl;
-	$query = "SELECT * FROM `jie_problem_gtype_detail` WHERE `LAG`='$lag' ORDER BY `ID`";
+	$query = "SELECT * FROM `tb_problem_gtype_detail` WHERE `LAG`='$lag' ORDER BY `ID`";
 	$result = mysql_query($query);
 
 	while ($line = mysql_fetch_array($result)) {
@@ -1006,7 +1006,7 @@ function GetMenuMember(){
 function DropDownMenu1(){
 	global $tpl;
 
-$query = "SELECT * FROM `jie_refer_type` WHERE `LAG`='1'  ORDER BY `ORDER` ASC";
+$query = "SELECT * FROM `tb_refer_type` WHERE `LAG`='1'  ORDER BY `ORDER` ASC";
 	$result = mysql_query($query);
 	while ($line2 = mysql_fetch_array($result)) {
 	$tpl->newBlock("MENU_REFERENCES");
@@ -1017,7 +1017,7 @@ $query = "SELECT * FROM `jie_refer_type` WHERE `LAG`='1'  ORDER BY `ORDER` ASC";
 		$tpl->assign("url","/references/index.php?type=".$line2["ID"]);
 	}
 
-$query = "SELECT * FROM `jie_newstype_detail` WHERE `LAG`='1'  ORDER BY `NAME` ASC";
+$query = "SELECT * FROM `tb_newstype_detail` WHERE `LAG`='1'  ORDER BY `NAME` ASC";
 	$result = mysql_query($query);
 	while ($line2 = mysql_fetch_array($result)) {
 	$tpl->newBlock("MENU_NEWS_EVENTS");
@@ -1029,7 +1029,7 @@ $query = "SELECT * FROM `jie_newstype_detail` WHERE `LAG`='1'  ORDER BY `NAME` A
 	}
 
 
-	$query = "SELECT * FROM `jie_group` WHERE `LAG`='1' AND `GROUP`='0' ORDER BY `ORDER` ASC";
+	$query = "SELECT * FROM `tb_group` WHERE `LAG`='1' AND `GROUP`='0' ORDER BY `ORDER` ASC";
 	$result = mysql_query($query);
 	while ($line2 = mysql_fetch_array($result)) {
 		$tpl->newBlock("MENU_PRODUCT");
@@ -1037,7 +1037,7 @@ $query = "SELECT * FROM `jie_newstype_detail` WHERE `LAG`='1'  ORDER BY `NAME` A
 		$name=str_replace("<br/>","",$line2["NAME_TH"]);
 		$tpl->assign("title2",$name);
 		$id3=$line2["ID"];
-		$query2 = "SELECT * FROM `jie_product_detail` WHERE `ID`='$id3' OR `GROUP`='$id3'";
+		$query2 = "SELECT * FROM `tb_product_detail` WHERE `ID`='$id3' OR `GROUP`='$id3'";
 		$result2 = mysql_query($query2);
 		$numsg2 = mysql_num_rows($result2);
 		$tpl->assign("url","/products/group_detail.php?id=".$id3);
@@ -1045,7 +1045,7 @@ $query = "SELECT * FROM `jie_newstype_detail` WHERE `LAG`='1'  ORDER BY `NAME` A
 
 	// Select Sub Data
 
-		/*	$query_sub = "SELECT * FROM `jie_group` WHERE `LAG`='1' AND `GROUP`='".$line2["ID"]."' ORDER BY `ORDER` ASC";
+		/*	$query_sub = "SELECT * FROM `tb_group` WHERE `LAG`='1' AND `GROUP`='".$line2["ID"]."' ORDER BY `ORDER` ASC";
 			$result_sub = mysql_query($query_sub);
 			while ($line_sub = mysql_fetch_array($result_sub)) {
 				$tpl->newBlock("MENU_PRODUCT");
@@ -1060,7 +1060,7 @@ $query = "SELECT * FROM `jie_newstype_detail` WHERE `LAG`='1'  ORDER BY `NAME` A
 
 function SelectProduct(){
 	global $tpl;
-	$query = "SELECT * FROM `jie_group` WHERE `GROUP`='0' ORDER BY `ORDER` ASC";
+	$query = "SELECT * FROM `tb_group` WHERE `GROUP`='0' ORDER BY `ORDER` ASC";
 	$result = mysql_query($query);
 	while ($line = mysql_fetch_array($result)) {
 		$tpl->newBlock("SELECT_PRODUCT");
@@ -1075,14 +1075,14 @@ function SelectProduct(){
 function MenuDropDownProductEbook($lag){
 global $tpl;
 
-$query = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' AND `GROUP`='0' ORDER BY `ORDER`";
+$query = "SELECT * FROM `tb_group` WHERE `LAG`='$lag' AND `GROUP`='0' ORDER BY `ORDER`";
 	$result = mysql_query($query);
 	while ($line = mysql_fetch_array($result)) {
 	$tpl->newBlock("MENUDROP2");
 	$tpl->assign("id",$line['ID']);
 	$tpl->assign("name",$line['NAME']);
 
-	$query_sub = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' AND `GROUP`='".$line["ID"]."' ORDER BY `ORDER` ASC";
+	$query_sub = "SELECT * FROM `tb_group` WHERE `LAG`='$lag' AND `GROUP`='".$line["ID"]."' ORDER BY `ORDER` ASC";
 			$result_sub = mysql_query($query_sub);
 			while ($line_sub = mysql_fetch_array($result_sub)) {
 				$tpl->newBlock("MENUDROP2");
@@ -1132,7 +1132,7 @@ while ($line = mysql_fetch_array($result)) {
 // Drop Down Menu
 function MenuProduct_Left2($lag){
 global $tpl;
-$query	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `ORDER` ASC";
+$query	= "SELECT * FROM `tb_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `ORDER` ASC";
 	$result	= mysql_query($query);
 	$no1=1;
 	while($line = mysql_fetch_array($result)) {
@@ -1155,7 +1155,7 @@ $tpl->assign("str",$str);
 
 function MenuProduct_Left3($lag,$cid,$no_selected1,$no_selected2=""){
 global $tpl;
-$query	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `ORDER`";
+$query	= "SELECT * FROM `tb_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `ORDER`";
 	$result	= mysql_query($query);
 	$no1=1;
 	while($line = mysql_fetch_array($result)) {
@@ -1183,7 +1183,7 @@ $query	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `
 		$str.='<div id="chap'.$no1.'" class="off">';
 
 		//++++++++++++++++++++ Menu Group
-		$query8 = "SELECT * FROM `jie_product_detail` WHERE LAG='1' AND `GROUP`='$id' AND `SHOW`='Yes' AND `KAKA`='No' ORDER BY `SORT`";
+		$query8 = "SELECT * FROM `tb_product_detail` WHERE LAG='1' AND `GROUP`='$id' AND `SHOW`='Yes' AND `KAKA`='No' ORDER BY `SORT`";
 		$result8 = mysql_query($query8);
 		$numresult8 = mysql_num_rows($result8);
 		if($numresult8>0){
@@ -1205,7 +1205,7 @@ $query	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `
 		}
 		//++++++++++++++++++++ Menu Group
 		//++++++++++++++++++++ Sub Group
-		$query3	= "SELECT * FROM `jie_group` WHERE LAG='1' AND `GROUP`='$id'  ORDER BY `ORDER` ASC";
+		$query3	= "SELECT * FROM `tb_group` WHERE LAG='1' AND `GROUP`='$id'  ORDER BY `ORDER` ASC";
 		$result3	= mysql_query($query3);
 		$grp_num=mysql_num_rows($result3);
 
@@ -1223,7 +1223,7 @@ $query	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `
 				}
 					//++++++++++++++++++++Menu Sub Group
 						//++++++++++++++++++++++++++++++++++++++++++++++++++
-							$query1	= "SELECT * FROM `jie_product_detail` WHERE LAG='1' AND `GROUP`='$sub_id' AND `SHOW`='Yes' AND `KAKA`='No'  ORDER BY `SORT`";
+							$query1	= "SELECT * FROM `tb_product_detail` WHERE LAG='1' AND `GROUP`='$sub_id' AND `SHOW`='Yes' AND `KAKA`='No'  ORDER BY `SORT`";
 							$result1	= mysql_query($query1);
 							$pro_num=mysql_num_rows($result1);
 
@@ -1271,7 +1271,7 @@ global $tpl;
 //++++++++++++++++++++++CAT MENU
 $str='';
 $no1=1;
-$query	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `ORDER` ASC";
+$query	= "SELECT * FROM `tb_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `ORDER` ASC";
 	$result	= mysql_query($query);
 	while($line = mysql_fetch_array($result)) {
 	//$tpl->assign("id",$line["ID"]);
@@ -1282,7 +1282,7 @@ $query	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `
 	$str.='<li><a  title="'.$title2.'" href="javascript:onOff(chap'.$no1.')">'.$title.'<b></b></a></li>
 	';
 //++++++++++++++++++Product
-	$query1	= "SELECT * FROM `jie_product_detail` WHERE LAG='$lag' AND `GROUP`='$id'  ORDER BY `NAME` ASC";
+	$query1	= "SELECT * FROM `tb_product_detail` WHERE LAG='$lag' AND `GROUP`='$id'  ORDER BY `NAME` ASC";
 	$result1	= mysql_query($query1);
 	$pro_num=mysql_num_rows($result1);
 	$str.='<div id="chap'.$no1.'" class="off"><ul>';
@@ -1296,7 +1296,7 @@ $query	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='0'  ORDER BY `
 
 //++++++++++++++++++Product
 //----------------------------Sub Group
-$query3	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='$id'  ORDER BY `ORDER` ASC";
+$query3	= "SELECT * FROM `tb_group` WHERE LAG='$lag' AND `GROUP`='$id'  ORDER BY `ORDER` ASC";
 	$result3	= mysql_query($query3);
 	$grp_num=mysql_num_rows($result3);
 	//$str.='<div id="chap'.$no1.'" class="off"><ul>';
@@ -1311,7 +1311,7 @@ $query3	= "SELECT * FROM `jie_group` WHERE LAG='$lag' AND `GROUP`='$id'  ORDER B
 	';
 
 	//++++++++++++++++++Sub Group Product
-	$query1	= "SELECT * FROM `jie_product_detail` WHERE LAG='1' AND `GROUP`='$sub_id'  ORDER BY `NAME` ASC";
+	$query1	= "SELECT * FROM `tb_product_detail` WHERE LAG='1' AND `GROUP`='$sub_id'  ORDER BY `NAME` ASC";
 	$result1	= mysql_query($query1);
 	$pro_num=mysql_num_rows($result1);
 	if($pro_num>0){
@@ -1343,7 +1343,7 @@ $tpl->assign("str",$str);
 function MenuDropDownProblem($lag){
 global $tpl;
 
-$query = "SELECT * FROM `jie_problem_gtype_detail` WHERE `LAG`='$lag' ORDER BY `NAME`";
+$query = "SELECT * FROM `tb_problem_gtype_detail` WHERE `LAG`='$lag' ORDER BY `NAME`";
 	$result = mysql_query($query);
 	while ($line = mysql_fetch_array($result)) {
 	$tpl->newBlock("MENU_DROP_PROBLEM");
@@ -1352,14 +1352,14 @@ $query = "SELECT * FROM `jie_problem_gtype_detail` WHERE `LAG`='$lag' ORDER BY `
 	}
 
 $str='';
-$query = "SELECT * FROM `jie_problem_gtype_detail` WHERE `LAG`='$lag' ORDER BY `NAME`";
+$query = "SELECT * FROM `tb_problem_gtype_detail` WHERE `LAG`='$lag' ORDER BY `NAME`";
 	$result = mysql_query($query);
 	while ($line = mysql_fetch_array($result)) {
 	$group_id=$line['ID'];
 	$str.='if (chosen == "'.$group_id.'") {';
 	$str.='selbox.options[selbox.options.length] = new Option(\'\',\'\');';
 	//$str.= iconv('TIS-620','UTF-8','selbox.options[selbox.options.length] = new Option(\'·Ñé§ËÁ´\',\'\');');
-$query1 = "SELECT * FROM `jie_problem_detail` WHERE `LAG`='$lag' AND `TID`='$group_id' ORDER BY `TITLE`";
+$query1 = "SELECT * FROM `tb_problem_detail` WHERE `LAG`='$lag' AND `TID`='$group_id' ORDER BY `TITLE`";
 	$result1 = mysql_query($query1);
 	while ($line1 = mysql_fetch_array($result1)) {
 $product_id=$line1['ID'];
@@ -1376,14 +1376,14 @@ $tpl->assign("code1",$str);
 function MenuDropDownProduct2($lag){
 global $tpl;
 
-$query = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' AND `GROUP`='0' ORDER BY `ORDER`";
+$query = "SELECT * FROM `tb_group` WHERE `LAG`='$lag' AND `GROUP`='0' ORDER BY `ORDER`";
 	$result = mysql_query($query);
 	while ($line = mysql_fetch_array($result)) {
 	$tpl->newBlock("MENUX_DROP1");
 	$tpl->assign("id",$line['ID']);
 	$tpl->assign("name",$line['NAME']);
 
-	$query_sub = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' AND `GROUP`='".$line["ID"]."' ORDER BY `ORDER` ASC";
+	$query_sub = "SELECT * FROM `tb_group` WHERE `LAG`='$lag' AND `GROUP`='".$line["ID"]."' ORDER BY `ORDER` ASC";
 			$result_sub = mysql_query($query_sub);
 			while ($line_sub = mysql_fetch_array($result_sub)) {
 				$tpl->newBlock("MENUX_DROP1");
@@ -1393,13 +1393,13 @@ $query = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' AND `GROUP`='0' ORDER BY 
 	}
 
 $str='';
-$query = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' ORDER BY `NAME`";
+$query = "SELECT * FROM `tb_group` WHERE `LAG`='$lag' ORDER BY `NAME`";
 	$result = mysql_query($query);
 	while ($line = mysql_fetch_array($result)) {
 	$group_id=$line['ID'];
 	$str.='if (chosen == "'.$group_id.'") {';
 	$str.='selbox.options[selbox.options.length] = new Option(\'\',\'\');';
-$query1 = "SELECT * FROM `jie_product_detail` WHERE `LAG`='$lag' AND `GROUP`='$group_id' ORDER BY `NAME`";
+$query1 = "SELECT * FROM `tb_product_detail` WHERE `LAG`='$lag' AND `GROUP`='$group_id' ORDER BY `NAME`";
 	$result1 = mysql_query($query1);
 	while ($line1 = mysql_fetch_array($result1)) {
 $product_id=$line1['ID'];
@@ -1416,14 +1416,14 @@ $tpl->assign("code1",$str);
 function MenuDropDownProduct($lag){
 global $tpl;
 
-$query = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' AND `GROUP`='0' ORDER BY `ORDER`";
+$query = "SELECT * FROM `tb_group` WHERE `LAG`='$lag' AND `GROUP`='0' ORDER BY `ORDER`";
 	$result = mysql_query($query);
 	while ($line = mysql_fetch_array($result)) {
 	$tpl->newBlock("MENU_DROP1");
 	$tpl->assign("id",$line['ID']);
 	$tpl->assign("name",$line['NAME']);
 
-	$query_sub = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' AND `GROUP`='".$line["ID"]."' ORDER BY `ORDER` ASC";
+	$query_sub = "SELECT * FROM `tb_group` WHERE `LAG`='$lag' AND `GROUP`='".$line["ID"]."' ORDER BY `ORDER` ASC";
 			$result_sub = mysql_query($query_sub);
 			while ($line_sub = mysql_fetch_array($result_sub)) {
 				$tpl->newBlock("MENU_DROP1");
@@ -1433,13 +1433,13 @@ $query = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' AND `GROUP`='0' ORDER BY 
 	}
 
 $str='';
-$query = "SELECT * FROM `jie_group` WHERE `LAG`='$lag' ORDER BY `NAME`";
+$query = "SELECT * FROM `tb_group` WHERE `LAG`='$lag' ORDER BY `NAME`";
 	$result = mysql_query($query);
 	while ($line = mysql_fetch_array($result)) {
 	$group_id=$line['ID'];
 	$str.='if (chosen == "'.$group_id.'") {';
 	$str.='selbox.options[selbox.options.length] = new Option(\'\',\'\');';
-$query1 = "SELECT * FROM `jie_product_detail` WHERE `LAG`='$lag' AND `GROUP`='$group_id' ORDER BY `NAME`";
+$query1 = "SELECT * FROM `tb_product_detail` WHERE `LAG`='$lag' AND `GROUP`='$group_id' ORDER BY `NAME`";
 	$result1 = mysql_query($query1);
 	while ($line1 = mysql_fetch_array($result1)) {
 $product_id=$line1['ID'];
@@ -1573,7 +1573,7 @@ function getPromotion($lag=1, $auth_data){
 	if(is_array($auth_data) && isset($auth_data['auth_mode']) && $auth_data['auth_mode']=='store'){
 		$where = ' and CUS ="1" ';
 	}
-	// $sql = 'select RELATED from jie_promotion_detail where LAG="'.mysql_real_escape_string($lag).'" and STARTDATE<="'.date('Y-m-d').'" and ENDDATE>="'.date('Y-m-d').'" and STATUS="Show" '.$where.' order by SUB desc';
+	// $sql = 'select RELATED from tb_promotion_detail where LAG="'.mysql_real_escape_string($lag).'" and STARTDATE<="'.date('Y-m-d').'" and ENDDATE>="'.date('Y-m-d').'" and STATUS="Show" '.$where.' order by SUB desc';
 	// $result = mysql_query($sql);
 	// $rs = mysql_fetch_assoc($result);
 	// $data = explode(',',$rs['RELATED']);
@@ -1594,7 +1594,7 @@ function sumPoint($product_set, $promotion_arr, $auth_mode=false, $lag = 1){
 	if(count($setId)>0){
 		$point = 0;
 		$sum_price = 0;
-		$sql = 'select ID, PRICES from jie_product_detail where LAG="'.mysql_real_escape_string($lag).'" and ID in("'.implode('","',$setId).'") ';
+		$sql = 'select ID, PRICES from tb_product_detail where LAG="'.mysql_real_escape_string($lag).'" and ID in("'.implode('","',$setId).'") ';
 		$result = mysql_query($sql);
 		while($product_data = mysql_fetch_assoc($result)){
 			if(($auth_mode=='normal' && $product_data["CON_POINT"]==1) || ($auth_mode=='store' && $product_data["CUS_POINT"]==1)) {
@@ -1630,7 +1630,7 @@ function productPoint($product_id, $num, $promotion_arr,$auth_mode=false, $lag =
 		'point' => 0
 	);
 
-	$sql = 'select ID, PRICES from jie_product_detail where LAG="'.mysql_real_escape_string($lag).'" and ID ="'.mysql_real_escape_string($product_id).'" ';
+	$sql = 'select ID, PRICES from tb_product_detail where LAG="'.mysql_real_escape_string($lag).'" and ID ="'.mysql_real_escape_string($product_id).'" ';
 	$result = mysql_query($sql);
 	$product_data = mysql_fetch_assoc($result);
 	if(($auth_mode=='normal' && $product_data["CON_POINT"]==1) || ($auth_mode=='store' && $product_data["CUS_POINT"]==1)) {
@@ -1678,6 +1678,3 @@ function orderStatus($id=''){
 	if($id!='') $return = $data[$id];
 	return $return;
 }
-
-
-?>
